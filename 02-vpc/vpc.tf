@@ -76,7 +76,7 @@ resource ibm_is_public_gateway gateway {
 resource ibm_is_subnet subnet {
   count           = "3"
 
-  name            = "${var.unique_id}-subnet${count.index + 1}"
+  name            = "${var.unique_id}-subnet-${count.index + 1}"
   vpc             = "${ibm_is_vpc.vpc.id}"
   zone            = "${var.ibm_region}-${count.index + 1}"
   resource_group  = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
