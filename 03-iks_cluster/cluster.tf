@@ -29,7 +29,7 @@ resource "ibm_container_vpc_cluster" "cluster" {
   flavor            = "${var.machine_type}"
   worker_count      = "${var.worker_count}"
   resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
-  kube_version      = "1.17.4"
+  kube_version      = "1.17.5"
 
   zones {
  #  subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids, 0)
