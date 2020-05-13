@@ -12,7 +12,8 @@
 
 resource kubernetes_secret logdna_agent_key {
   metadata {
-    name = "logdna-agent-key"
+    name = "logdna-agent-key",
+    namespace = "${var.log_mon_ns}"
   }
 
   data = {
