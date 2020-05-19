@@ -1,14 +1,13 @@
-# ibm-db-postgresql
+# ibm-key-protect
+Terraform and Schematic example of IBM Key protect
 
-Terraform and Schematic example of IBM Cloud Database PostgresSQL 
+Cloned from the terraform provider [IBM Key protect Example](https://github.com/IBM-Cloud/terraform-provider-ibm/tree/master/examples/ibm-key-protect)
 
-## Reference Documentation
--   IBM Terraform Provider Database Block [ibm_database](https://cloud.ibm.com/docs/terraform?topic=terraform-databases-resources#db)
--   IBM Cloud Database for PostgresSQL [Documention](https://cloud.ibm.com/docs/databases-for-postgresql?topic=databases-for-postgresql-getting-started)
+# Key Protect Key example
 
-## Database Terraform example
+This example shows how to Create a Key protect instance, generate a key and integrate that key with cos-bucket
 
-This example shows how to Create a PostgreSQL database
+This sample configuration will create the key protect instance, cos-bucket instance, root key, and integrate the key with a cos bucket after creating the bucket.
 
 
 To run, configure your IBM Cloud provider
