@@ -1,25 +1,24 @@
-#*****************************************************************************
-# IBM Terraform Provider Documentation Block References
-#   IBM Provider:    https://cloud.ibm.com/docs/terraform?topic=terraform-provider-reference&-access-data-sources
-#   Resource Group:  https://cloud.ibm.com/docs/terraform?topic=terraform-resource-management-data-sources&-access-data-sources#resource-group
+####################################################################################################
+# 11-key_protect  Creates key protect key
 #
-#   Database :       https://cloud.ibm.com/docs/terraform?topic=terraform-databases-resources#db
-#   Access Group:    https://cloud.ibm.com/docs/terraform?topic=terraform-iam-resources&-access-data-sources#iam-access-group-policy
-#*****************************************************************************
-
-##############################################################################
-# IBM Cloud Provider
-##############################################################################
-
-provider "ibm" {
-  region             = "${var.ibm_region}"
-  generation         = 2
-  ibmcloud_timeout   = 60
-}
-
-##############################################################################
-
-
+# Depends on:
+#    schematics.tf - provides the output data from 01-groups Schematics workspace
+#
+# Requires:
+#   See provider.tf
+#       variables.tf
+#
+# Creates: 
+#   - Create Key Protect Instance (ibm_resource_instance.kms)
+#   - Create a Key Protect Root Key (ibm_kp_key.key)
+#
+# Outputs: 
+#  see outputs.tf
+#
+# References:
+#   Resource Instance: https://cloud.ibm.com/docs/terraform?topic=terraform-resource-management-data-sources&-access-data-sources#resouce-instance
+#   Key Protect:       https://cloud.ibm.com/docs/terraform?topic=terraform-kp-resources&-access-data-sources#kp-key
+#####################################################################################################
 
 ##############################################################################
 # Resource group ID from name
@@ -31,40 +30,32 @@ data "ibm_resource_group" "group" {
 
 
 ##############################################################################
-# Provision database instance
+# Create Key Protect Instance
 ##############################################################################
-resource "ibm_database" "db_instance" {
-  name              = "${var.db_name}"
-  plan              = "${var.plan}"
+
+resource ibm_resource_instance kms {
+  name              = "${var.resource_group_name}-${var.unique_id}"
+  service           = "kms"
+  plan              = "${var.kms_plan}"
   location          = "${var.ibm_region}"
-  service           = "databases-for-postgresql"
   resource_group_id = "${data.ibm_resource_group.group.id}"
+  tags              = ["iks-on-vpc"]
 
-  adminpassword                = "${var.db_admin_password}"
-  members_memory_allocation_mb = "${var.db_memory_allocation}"
-  members_disk_allocation_mb   = "${var.db_disk_allocation}"
-  users {
-    name     = "${var.user_username}"
-    password = "${var.user_password}"
+  parameters = {
+    service-endpoints = "private"
   }
+
 }
+
 ##############################################################################
 
 
 ##############################################################################
-# Grant Lab User Access to Database
-# For lab simplification, this block is not used. During lab setup we set the
-# access for you to use. In your team, you can assign access policies at the
-# account, resource group, service, instance using this type of block.
+# Create a Key Protect Root Key
 ##############################################################################
-# resource "ibm_iam_access_group_policy" "ex2_db_policy" {
-#  access_group_id = ibm_iam_access_group.labuser.id
-#  roles        = ["Reader"]
 
-#  resources = [{
-#    service = "databases-for-postgresql"
-#    resource_instance_id = element(split(":", ibm_database.db_instance.id),7)
-#  }
-#  ]
-# }
-##############################################################################
+resource ibm_kp_key key {
+  key_protect_id = "${ibm_resource_instance.kms.guid}"
+  key_name       = "${var.kms_root_key_name}"
+  standard_key   = false
+}
