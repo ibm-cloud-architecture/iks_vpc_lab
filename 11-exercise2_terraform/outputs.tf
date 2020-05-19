@@ -1,14 +1,22 @@
-output "db_crn_id" {
-  value = "${ibm_database.db_instance.id}"
-}
-/*
-output "db_connection_string" {
-  value = "http://${ibm_database.db_instance.connectionstrings.0.name}"
-} */
+##############################################################################
+# KMS Outputs
+##############################################################################
 
-output "db_admin_userid" {
-  value = "${ibm_database.db_instance.adminuser}"
+output kms_name {
+  value = "${ibm_resource_instance.kms.name}"
 }
-output "db_version" {
-  value = "${ibm_database.db_instance.version}"
+output kms_id {
+  value = "${ibm_resource_instance.kms.id}"
 }
+
+##############################################################################
+
+##############################################################################
+# Root Key Outputs
+##############################################################################
+
+output kms_key_id {
+  value = "${ibm_kp_key.key.id}"
+}
+
+##############################################################################
