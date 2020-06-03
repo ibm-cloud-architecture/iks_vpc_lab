@@ -13,7 +13,7 @@ The diagram below adds the following IBM Cloud resources:
 ![VPC Diagram](../images/ex3_diagram_vpc.png)
 
 ## Dependencies
-The *Workspace ID* (variable:`groups_ws_id`) of the [01-groups](../01-groups) instance.
+-   The *Workspace ID* (variable: `groups_ws_id`) of the [01-groups](../01-groups) workspace instance.
 
 ## Documentation References
 -   [IBM Cloud Virtual Private Cloud (VPC)](https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpc)
