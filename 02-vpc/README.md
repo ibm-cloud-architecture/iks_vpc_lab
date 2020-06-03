@@ -1,35 +1,21 @@
 
-### About
-This Terraform will create the VPC along with Zones, subnets and public gateway for the VPC on IBM Cloud.
+# Networking services
 
-NOTE: This Terraform configuration is part of IBM Cloud Schematics lab series and is expected to be part of lab defined [here](../schematics/01-vpc).
-### Prerequisite
+This folder contains the terraform code to implement the *Network Services* layer of the solution architecture and is executed in an [IBM Cloud Schematics](https://cloud.ibm.com/schematics/overview) workspace.
 
-* This has been tested using Terraform v0.11.x we advise you use this version as we will test your code with the same
 
-* Export ibmcloud_api_key to IC_API_KEY . Refer [here](https://cloud.ibm.com/docs/iam?topic=iam-userapikey#userapikey) to generate ibmcloud_api_key.
+IBM Cloud VPC provides a multi-zone, public and/or private network consisting of load balancers, public gateways, subnets, and access control lists. The diagram reflects the network architecture used in this lab and includes three availability zones (AZ), Virtual Private Cloud (VPC) subnets in each AZ where worker nodes will be deployed, a load balancer (in this case, public) for inbound traffic, and a public gateway for outbound traffic. All services are fully managed.
 
-### Variables
+The diagram below adds the following IBM Cloud resources:
+- VPC network in three zones
+- Public gateway
 
-#### Input
-|Variable Name|Description|Default Value|
-|-------------|-----------|-------------|
-|unique_id|a unique string to differentiate the names of resource in a multi-tenant cloud account|orangeuglad|
-|ibm_region|the ibm cloud regiuon for the lab|us-south|
-|resource_group|the resource group name|default|
-|labuser id|the IBMid of the lab participant|userid.ibm.com|
+![VPC Diagram](../images/ex3_diagram_vpc.png)
 
-#### Output
-|Variable Name|Description|
-|-------------|-----------|
-|vpc_id||
-|subnet_ids||
+## Dependencies
+The *Workspace ID* (variable:`groups_ws_id`) of the [01-groups](../01-groups) instance.
 
-#### Validate
-
-Execute "terraform output" command to verify output variable are set.
-
-#### Clean-up
-terraform destory
-
-*NOTE: Given that this Terraform is part of IBM Cloud Schematics lab, it is advised to use clean-up script provided in [IBM Cloud Schematics lab](../schematics/01-vpc) to ensure any dependencies are taken care off during clean up.*
+## Documentation References
+-   [IBM Cloud Virtual Private Cloud (VPC)](https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpc)
+-   [VPC Load Balancer](https://cloud.ibm.com/docs/vpc?topic=vpc-load-balancers) 
+-   [Public Gateway](https://cloud.ibm.com/docs/vpc?topic=vpc-about-networking-for-vpc#external-connectivity)
