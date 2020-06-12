@@ -16,8 +16,8 @@
 #  see outputs.tf
 #
 # References:
-#   Resource Instance: https://cloud.ibm.com/docs/terraform?topic=terraform-resource-management-data-sources&-access-data-sources#resouce-instance
-#   Certificate Mgr:   https://cloud.ibm.com/docs/terraform?topic=terraform-cert-manager-resources&-access-data-sources#cert-manager
+#   Database Resource: https://cloud.ibm.com/docs/terraform?topic=terraform-databases-resources#db
+#   Key Resource:      https://cloud.ibm.com/docs/terraform?topic=terraform-kp-resources#kp-key
 #########################################################################################################
 
 ##############################################################################
