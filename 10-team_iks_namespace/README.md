@@ -25,4 +25,5 @@ The final step with provisioning the database and storage service is to bind the
 
 
 ## Documentation References
--   [Binding Services](hhttps://cloud.ibm.com/docs/containers?topic=containers-service-binding#bind-services)
+-   [Binding Services](https://cloud.ibm.com/docs/containers?topic=containers-service-binding#bind-services)
+
