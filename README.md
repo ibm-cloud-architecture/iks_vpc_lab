@@ -1,8 +1,9 @@
-# Explore IBM Cloud VPC/IKS Course
+# VPC And Infrastructure as Code (IaC) on IBM Cloud 
 
+This repo contains the terraform code used to provision the environment for the  [VPC And Infrastructure as Code (IaC) on IBM Cloud](https://developer.ibm.com/openlabs/vpc/catalog) course. 
 
-This architecture also supports a layered approach that can easily be automated for provisioning into IBM Cloud.
+![architecture](images/ex3_diagram_data.png)
 
-This repo contains the terraform code used to provision the environment for the  **Explore IBM Cloud Virtual Private Cloud and Containers with Security, Data, Storage and Resiliency**  course.  See the course for an explanation of the architecture and details of this terraform code.
+This architecture supports an architecture layered approach that is easily automated using Terraform and the IBM Cloud  [IBM Cloud Schematics](https://cloud.ibm.com/schematics/overview) workspaces.
 
-
+See the course [VPC and Infrastructure as Code (IaC) on IBM Cloud](https://developer.ibm.com/openlabs/vpc/catalog) for an explanation of the architecture and details of this terraform code.
