@@ -24,6 +24,11 @@ variable "worker_count" {
   default     = 1
 }
 
+variable "kube_version" {
+  description = "run ibmcloud ks versions for available options"
+  default     = "1.17.5"
+}
+
 ##############################################################################
 
 ##############################################################################
