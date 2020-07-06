@@ -9,19 +9,27 @@
 #       variables.tf
 #
 # Creates: 
-#   Creates an IKS cluster (ibm_container_vpc_cluster.cluster) and 
+#   Creates an OCP (ROCKS) cluster (ibm_container_vpc_cluster.cluster) and 
 #   Container Registry ( ibm_resource_instance.docker_registry) in the VPC Cluster
 #    
 # Outputs: 
 #  see outputs.tf
 #
 # References:
-#   IKS/VPC: https://cloud.ibm.com/docs/terraform?topic=terraform-container-resources&-access-data-sources#vpc-cluster
+#   IKS/VPC: https://cloud.ibm.com/docs/terraform?topic=terraform-container-resources#gen2-openshift
 ##################################################################################################
 
 ##############################################################################
-# Provison IKS on VPC Cluster
+# Provison ROCKs cluster  on VPC Cluster
 ##############################################################################
+
+# RedHat Cluster requires Cloud Object Storage instance
+resource "ibm_resource_instance" "rh_cos_instance" {
+  name     = "${var.unique_id}-rh-cos"
+  service  = "cloud-object-storage"
+  plan     = "standard"
+  location = "global"
+}
 
 resource "ibm_container_vpc_cluster" "cluster" {
   name              = "${var.cluster_name}"
@@ -30,6 +38,8 @@ resource "ibm_container_vpc_cluster" "cluster" {
   worker_count      = "${var.worker_count}"
   resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
   kube_version      = "${var.kube_version}"
+  cos_instance_crn  = ibm_resource_instance.rh_cos_instance.id
+  entitlement       = "cloud_pak"
 
   zones {
  #  subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids, 0)
