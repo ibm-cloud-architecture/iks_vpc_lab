@@ -38,7 +38,7 @@ resource "ibm_container_vpc_cluster" "cluster" {
   worker_count      = "${var.worker_count}"
   resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
   kube_version      = "${var.kube_version}"
-  cos_instance_crn  = ibm_resource_instance.rh_cos_instance.id
+  cos_instance_crn  = "${ibm_resource_instance.rh_cos_instance.id}"
   entitlement       = "cloud_pak"
 
   zones {
