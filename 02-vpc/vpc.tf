@@ -63,6 +63,7 @@ resource ibm_is_public_gateway gateway {
   name  = "${var.unique_id}-gateway-zone-${count.index+1}"
   vpc   = "${ibm_is_vpc.vpc.id}"
   zone  = "${var.ibm_region}-${count.index+1}"
+  resource_group = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
 }
 
 
