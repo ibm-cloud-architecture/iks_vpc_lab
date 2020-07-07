@@ -25,10 +25,11 @@
 
 # RedHat Cluster requires Cloud Object Storage instance
 resource "ibm_resource_instance" "rh_cos_instance" {
-  name     = "${var.unique_id}-rh-cos"
-  service  = "cloud-object-storage"
-  plan     = "standard"
-  location = "global"
+  name              = "${var.unique_id}-rh-cos"
+  service           = "cloud-object-storage"
+  plan              = "standard"
+  location          = "global"
+  resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
 }
 
 resource "ibm_container_vpc_cluster" "cluster" {
