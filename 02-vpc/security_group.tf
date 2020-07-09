@@ -9,7 +9,7 @@
 ##############################################################################
 
 resource "ibm_is_security_group_rule" "sg_rule_tcp_in_30000_32767" {
-    group = "${ibm_is_vpc.vpc.default_security_group}"
+    group = ibm_is_vpc.vpc.default_security_group
     direction = "inbound"
     tcp {
         port_min = 30000
