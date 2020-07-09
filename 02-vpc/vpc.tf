@@ -28,7 +28,7 @@
 
 resource ibm_is_vpc vpc {
   name           = "${var.unique_id}-vpc"
-  resource_group = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
+  resource_group = data.ibm_schematics_output.groups_output.output_values.resource_group_id
   tags           = ["iks-on-vpc"]
 }
 
@@ -44,7 +44,7 @@ resource ibm_is_vpc_address_prefix subnet_prefix {
 
   name  = "${var.unique_id}-prefix-zone-${count.index + 1}"
   zone  = "${var.ibm_region}-${(count.index % 3) + 1}"
-  vpc   = "${ibm_is_vpc.vpc.id}"
+  vpc   = ibm_is_vpc.vpc.id
   cidr  = "${element(var.cidr_blocks, count.index)}"
 }
 
@@ -60,10 +60,10 @@ resource ibm_is_vpc_address_prefix subnet_prefix {
 resource ibm_is_public_gateway gateway {
   count = "3"
 
-  name  = "${var.unique_id}-gateway-zone-${count.index+1}"
-  vpc   = "${ibm_is_vpc.vpc.id}"
-  zone  = "${var.ibm_region}-${count.index+1}"
-  resource_group = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
+  name           = "${var.unique_id}-gateway-zone-${count.index+1}"
+  vpc            = "${ibm_is_vpc.vpc.id}"
+  zone           = "${var.ibm_region}-${count.index+1}"
+  resource_group = data.ibm_schematics_output.groups_output.output_values.resource_group_id
 }
 
 
