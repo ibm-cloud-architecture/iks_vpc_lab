@@ -29,32 +29,29 @@ resource "ibm_resource_instance" "rh_cos_instance" {
   service           = "cloud-object-storage"
   plan              = "standard"
   location          = "global"
-  resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
+  resource_group_id = data.ibm_schematics_output.groups_output.output_values.resource_group_id
 }
 
 resource "ibm_container_vpc_cluster" "cluster" {
   name              = "${var.unique_id}-${var.cluster_name}"
-  vpc_id            = "${data.ibm_schematics_output.vpc_workspace.output_values.vpc_id}"
-  flavor            = "${var.machine_type}"
-  worker_count      = "${var.worker_count}"
-  resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
-  kube_version      = "${var.kube_version}"
-  cos_instance_crn  = "${ibm_resource_instance.rh_cos_instance.id}"
+  vpc_id            = data.ibm_schematics_output.vpc_workspace.output_values.vpc_id
+  flavor            = var.machine_type
+  worker_count      = var.worker_count
+  resource_group_id = data.ibm_schematics_output.groups_output.output_values.resource_group_id
+  kube_version      = var.kube_version
+  cos_instance_crn  = ibm_resource_instance.rh_cos_instance.id
   entitlement       = "cloud_pak"
 
   zones {
- #  subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids, 0)
-    subnet_id = "${data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids[0]}"
+    subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids, 0)
     name      = "${var.ibm_region}-1"
   }
   zones {
-#   subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids, 1)
-    subnet_id = "${data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids[1]}"
+    subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids, 1)
     name      = "${var.ibm_region}-2"
   }
   zones {
-#   subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids, 2)
-    subnet_id = "${data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids[2]}"
+    subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids, 2)
     name      = "${var.ibm_region}-3"
   }
 }

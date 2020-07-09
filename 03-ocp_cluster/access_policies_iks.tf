@@ -8,22 +8,22 @@
 ##############################################################################
 /*
 resource ibm_iam_access_group_policy iks_labadmin_policy {
-  access_group_id = "${data.ibm_schematics_output.groups_output.output_values.labadmin_group_id}"
+  access_group_id = data.ibm_schematics_output.groups_output.output_values.labadmin_group_id
   roles           = ["${var.labadmin_access}"]
 
   resources = [{
     service              = "containers-kubernetes"
-    resource_instance_id = "${ibm_container_vpc_cluster.cluster.id}"
+    resource_instance_id = ibm_container_vpc_cluster.cluster.id
   }]
 }
 
 resource ibm_iam_access_group_policy iks_labusers_policy {
-  access_group_id = "${data.ibm_schematics_output.groups_output.output_values.labuser_group_id}"
+  access_group_id = data.ibm_schematics_output.groups_output.output_values.labuser_group_id
   roles           = ["${var.labuser_access}"]
 
   resources = [{
     service              = "containers-kubernetes"
-    resource_instance_id = "${ibm_container_vpc_cluster.cluster.id}"
+    resource_instance_id = ibm_container_vpc_cluster.cluster.id
   }]
 }
 
@@ -35,12 +35,12 @@ resource ibm_iam_access_group_policy iks_labusers_policy {
 ##############################################################################
 
 resource ibm_iam_service_policy service_id_policy {
-  iam_service_id = "${data.ibm_schematics_output.groups_output.output_values.service_id}"
+  iam_service_id = data.ibm_schematics_output.groups_output.output_values.service_id
   roles          = ["Manager", "Viewer", "Administrator"]
 
   resources = [{
     service              = "containers-kubernetes"
-    resource_instance_id =  "${ibm_container_vpc_cluster.cluster.id}"
+    resource_instance_id = ibm_container_vpc_cluster.cluster.id
   }]
 }
 ##############################################################################

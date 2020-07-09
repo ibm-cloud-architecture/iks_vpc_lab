@@ -10,5 +10,5 @@ data "ibm_schematics_workspace" "groups_workspace" {
 
 data "ibm_schematics_output" "groups_output" {
   workspace_id = var.groups_ws_id
-  template_id  = "${data.ibm_schematics_workspace.groups_workspace.template_id[0]}"
+  template_id  = element(data.ibm_schematics_workspace.groups_workspace.template_id, 0)
 }
