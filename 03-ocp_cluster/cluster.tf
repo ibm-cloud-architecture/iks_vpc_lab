@@ -43,15 +43,15 @@ resource "ibm_container_vpc_cluster" "cluster" {
   entitlement       = "cloud_pak"
 
   zones {
-    subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids.value, 0)
+    subnet_id = data.ibm_schematics_output.test.output_values["subnet_ids.0"]
     name      = "${var.ibm_region}-1"
   }
   zones {
-    subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids.value, 1)
+    subnet_id = data.ibm_schematics_output.test.output_values["subnet_ids.1"]
     name      = "${var.ibm_region}-2"
   }
   zones {
-    subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids.value, 2)
+    subnet_id = data.ibm_schematics_output.test.output_values["subnet_ids.2"]
     name      = "${var.ibm_region}-3"
   }
 }
