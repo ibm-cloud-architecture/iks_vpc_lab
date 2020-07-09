@@ -42,7 +42,6 @@ resource "ibm_container_vpc_cluster" "cluster" {
   cos_instance_crn  = ibm_resource_instance.rh_cos_instance.id
   entitlement       = "cloud_pak"
 
-.*.id
   zones {
     subnet_id = element(data.ibm_schematics_output.vpc_workspace.output_values.subnet_ids.*.id, 0)
     name      = "${var.ibm_region}-1"
