@@ -22,7 +22,7 @@ resource kubernetes_secret logdna_agent_key {
 
   type = "Opaque"
 
-  depends_on = ["kubernetes_namespace.ibm_observe"]
+  depends_on = [kubernetes_namespace.ibm_observe]
 }
 
 ##############################################################################
@@ -192,7 +192,7 @@ resource kubernetes_daemonset logdna_agent {
       }
     }
   }
-  depends_on = ["kubernetes_secret.logdna_agent_key"]
+  depends_on = [kubernetes_secret.logdna_agent_key]
 }
 
 ##############################################################################

@@ -10,10 +10,10 @@
 
 resource kubernetes_namespace ibm_observe {
   metadata {
-    name = "${var.log_mon_ns}"
+    name = var.log_mon_ns
   }
 
-# depends_on = ["kubernetes_daemonset.logdna_agent"]
+# depends_on = [kubernetes_daemonset.logdna_agent]
 }
 ##############################################################################
 
@@ -28,7 +28,7 @@ resource kubernetes_service_account sysdig_agent {
     namespace = "${var.log_mon_ns}"
   }
 
-  depends_on = ["kubernetes_namespace.ibm_observe"]
+  depends_on = [kubernetes_namespace.ibm_observe]
 }
 
 ##############################################################################
@@ -91,7 +91,7 @@ resource kubernetes_cluster_role_binding sysdig_agent {
   subject {
     kind      = "ServiceAccount"
     name      = "sysdig-agent"
-    namespace = "${var.log_mon_ns}"
+    namespace = var.log_mon_ns
   }
 
   role_ref {
@@ -100,7 +100,7 @@ resource kubernetes_cluster_role_binding sysdig_agent {
     name      = "sysdig-agent"
   }
 
-  depends_on = ["kubernetes_cluster_role.sysdig_agent"]
+  depends_on = [kubernetes_cluster_role.sysdig_agent]
 }
 
 ##############################################################################
@@ -113,7 +113,7 @@ resource kubernetes_cluster_role_binding sysdig_agent {
 resource kubernetes_secret sysdig_agent {
   metadata {
     name      = "sysdig-agent"
-    namespace = "${var.log_mon_ns}"
+    namespace = var.log_mon_ns
   }
 
   data = {
@@ -122,7 +122,7 @@ resource kubernetes_secret sysdig_agent {
 
   type = "Opaque"
 
-  depends_on = ["kubernetes_cluster_role_binding.sysdig_agent"]
+  depends_on = [kubernetes_cluster_role_binding.sysdig_agent]
 }
 
 ##############################################################################
@@ -170,7 +170,7 @@ kubectl apply -f $CONFIG_FILE --namespace=$NAMESPACE
     EOT
   }
 
-  depends_on = ["kubernetes_secret.sysdig_agent"]
+  depends_on = [kubernetes_secret.sysdig_agent]
 
 }
 
@@ -403,7 +403,7 @@ resource kubernetes_daemonset sysdig_agent {
     }
   }
 
-  depends_on = ["null_resource.configure_monitoring"]
+  depends_on = [null_resource.configure_monitoring]
 }
 
 ##############################################################################
