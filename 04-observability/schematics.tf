@@ -6,19 +6,19 @@
 
 
 data "ibm_schematics_workspace" "iks_workspace" {
-  workspace_id = "${var.iks_ws_id}"
+  workspace_id = var.iks_ws_id
 }
 
 data "ibm_schematics_output" "iks_workspace" {
-  workspace_id = "${var.iks_ws_id}"
-  template_id  = "${data.ibm_schematics_workspace.iks_workspace.template_id.0}"
+  workspace_id = var.iks_ws_id
+  template_id  = element(data.ibm_schematics_workspace.iks_workspace.template_id,0)
 }
 
 data "ibm_schematics_workspace" "groups_workspace" {
-  workspace_id = "${var.groups_ws_id}"
+  workspace_id = var.groups_ws_id
 }
 
 data "ibm_schematics_output" "groups_output" {
-  workspace_id = "${var.groups_ws_id}"
-  template_id  = "${data.ibm_schematics_workspace.groups_workspace.template_id.0}"
+  workspace_id = var.groups_ws_id
+  template_id  = element(data.ibm_schematics_workspace.groups_workspace.template_id,0)
 }

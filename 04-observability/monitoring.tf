@@ -30,10 +30,10 @@
 
 resource "ibm_resource_instance" "sysdig" {
   name              = "${var.unique_id}-sysdig"
-  location          = "${var.ibm_region}"
+  location          = var.ibm_region
   service           = "sysdig-monitor"
-  plan              = "${var.monitor_plan}"
-  resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
+  plan              = var.monitor_plan
+  resource_group_id = data.ibm_schematics_output.groups_output.output_values.resource_group_id
   tags              = ["iks-on-vpc"]
 }
 
@@ -46,8 +46,8 @@ resource "ibm_resource_instance" "sysdig" {
 
 resource "ibm_resource_key" "sysdig_secret" {
   name                 = "${var.unique_id}_monitor_key"
-  role                 = "${var.log_role}"
-  resource_instance_id = "${ibm_resource_instance.sysdig.id}"
+  role                 = var.log_role
+  resource_instance_id = ibm_resource_instance.sysdig.id
 }
 
 ##############################################################################

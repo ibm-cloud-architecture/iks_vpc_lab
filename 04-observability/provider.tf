@@ -5,15 +5,15 @@
 ##############################################################################
 
 provider "ibm" {
-  region           = "${var.ibm_region}"
+  region           = var.ibm_region
   generation       = 2
   ibmcloud_timeout = 60
 }
 
 provider "kubernetes" {
   load_config_file       = false
-  host                   = "${data.ibm_schematics_output.iks_workspace.output_values.host}"
-  client_certificate     = "${data.ibm_schematics_output.iks_workspace.output_values.client_certificate}"
-  client_key             = "${data.ibm_schematics_output.iks_workspace.output_values.client_key}"
-  cluster_ca_certificate = "${data.ibm_schematics_output.iks_workspace.output_values.cluster_ca_certificate}"
+  host                   = data.ibm_schematics_output.iks_workspace.output_values.host
+  client_certificate     = data.ibm_schematics_output.iks_workspace.output_values.client_certificate
+  client_key             = data.ibm_schematics_output.iks_workspace.output_values.client_key
+  cluster_ca_certificate = data.ibm_schematics_output.iks_workspace.output_values.cluster_ca_certificate
 }

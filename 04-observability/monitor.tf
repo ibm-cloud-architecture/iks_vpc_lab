@@ -184,7 +184,7 @@ kubectl apply -f $CONFIG_FILE --namespace=$NAMESPACE
 resource kubernetes_daemonset sysdig_agent {
   metadata {
     name      = "sysdig-agent"
-    namespace = "${var.log_mon_ns}"
+    namespace = var.log_mon_ns
 
     labels = {
       app = "sysdig-agent"
