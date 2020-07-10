@@ -139,7 +139,7 @@ resource null_resource configure_monitoring {
     command = <<EOT
 
 CONFIG=${data.ibm_container_cluster_config.cluster.config_file_path}
-CLUSTER_NAME=${var.cluster_name}
+CLUSTER_NAME=${data.ibm_schematics_output.iks_workspace.output_values.cluster_name}
 SYSDIG_ACCESS_KEY=${ibm_resource_key.sysdig_secret.credentials["Sysdig Access Key"]}
 NAMESPACE="${var.log_mon_ns}"
 ACCESS_KEY=${ibm_resource_key.sysdig_secret.credentials["Sysdig Access Key"]}
