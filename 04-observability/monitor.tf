@@ -25,7 +25,7 @@ resource kubernetes_namespace ibm_observe {
 resource kubernetes_service_account sysdig_agent {
   metadata {
     name      = "sysdig-agent"
-    namespace = "${var.log_mon_ns}"
+    namespace = var.log_mon_ns
   }
 
   depends_on = [kubernetes_namespace.ibm_observe]
@@ -73,7 +73,7 @@ resource kubernetes_cluster_role sysdig_agent {
     resources  = ["daemonsets", "deployments", "ingresses", "replicasets"]
   }
 
-  depends_on = ["kubernetes_service_account.sysdig_agent"]
+  depends_on = [kubernetes_service_account.sysdig_agent]
 }
 
 ##############################################################################
