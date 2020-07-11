@@ -28,14 +28,14 @@
 resource ibm_resource_instance cos {
   name              = "${var.unique_id}-cos"
   service           = "cloud-object-storage"
-  plan              = "${var.cos_plan}"
+  plan              = var.cos_plan
   location          = "global"
-  resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
+  resource_group_id = data.ibm_schematics_output.groups_output.output_values.resource_group_id
   tags              = ["iks-on-vpc"]
 
   parameters = {
-    service-endpoints = "${var.end_points}"
-    key_protect_key   = "${data.ibm_schematics_output.key_workspace.output_values.kms_key_id}"
+    service-endpoints = var.end_points
+    key_protect_key   = data.ibm_schematics_output.key_workspace.output_values.kms_key_id
   }
 
   //User can increase timeouts 
@@ -55,9 +55,9 @@ resource ibm_resource_instance cos {
 
 resource ibm_iam_authorization_policy cos_policy {
   source_service_name         = "cloud-object-storage"
-  source_resource_instance_id = "${ibm_resource_instance.cos.id}"
+  source_resource_instance_id = ibm_resource_instance.cos.id
   target_service_name         = "kms"
-  target_resource_instance_id = "${data.ibm_schematics_output.key_workspace.output_values.kms_id}"
+  target_resource_instance_id = data.ibm_schematics_output.key_workspace.output_values.kms_id
   roles                       = ["Reader"]
 }
 
