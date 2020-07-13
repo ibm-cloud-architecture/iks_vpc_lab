@@ -28,12 +28,12 @@ resource "ibm_database" "postgresql" {
 # depends_on        = ["ibm_iam_authorization_policy.psql_policy"]
   name              = "${var.unique_id}-postgres"
   service           = "databases-for-postgresql"
-  plan              = "${var.postgres_plan}"
-  location          = "${var.ibm_region}"
-  resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
+  plan              = var.postgres_plan
+  location          = var.ibm_region
+  resource_group_id = data.ibm_schematics_output.groups_output.output_values.resource_group_id
   tags              = ["iks-on-vpc"]
-  service_endpoints = "${var.end_points}"
-  key_protect_key   = "${data.ibm_schematics_output.key_workspace.output_values.kms_key_id}"
+  service_endpoints = var.end_points
+  key_protect_key   = data.ibm_schematics_output.key_workspace.output_values.kms_key_id
 
   //User can increase timeouts
   timeouts {
@@ -53,9 +53,9 @@ resource "ibm_database" "postgresql" {
 /*
 resource "ibm_iam_authorization_policy" "psql_policy" {
   source_service_name         = "databases-for-postgresql"
-  # source_resource_instance_id = "${ibm_database.postgresql.id}"
+  # source_resource_instance_id = ibm_database.postgresql.id
   target_service_name         = "kms"
-  # target_resource_instance_id = "${data.ibm_schematics_output.key_workspace.output_values.kms_id}"
+  # target_resource_instance_id = data.ibm_schematics_output.key_workspace.output_values.kms_id
   roles                       = ["Reader"]
 }
 */
@@ -66,9 +66,9 @@ resource "ibm_iam_authorization_policy" "psql_policy" {
 # Postgresql Secret
 ##############################################################################
 resource "ibm_resource_key" "postgresql_secret" {
-  name                 = "${var.postgres_secret_name}"
+  name                 = var.postgres_secret_name
   role                 = "Administrator"
-  resource_instance_id = "${ibm_database.postgresql.id}"
+  resource_instance_id = ibm_database.postgresql.id
 }
 
 ##############################################################################
