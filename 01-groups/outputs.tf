@@ -6,7 +6,7 @@
 ##############################################################
 
 output labuser_group_id {
-  value       = "${ibm_iam_access_group.labuser.id}"
+  value       = ibm_iam_access_group.labuser.id
   description = "id of lab user access group"
 }
 
@@ -18,7 +18,7 @@ output labuser_group_id {
 ##############################################################
 
 output labadmin_group_id {
-  value       = "${ibm_iam_access_group.labadmin.id}"
+  value       = ibm_iam_access_group.labadmin.id
   description = "id of lab admin access group"
 }
 
@@ -29,7 +29,7 @@ output labadmin_group_id {
 ##############################################################
 
 output service_id {
-  value       = "${ibm_iam_service_id.service_id.id}"
+  value       = ibm_iam_service_id.service_id.id
   description = "ID of service ID"
 }
 
@@ -40,6 +40,6 @@ output service_id {
 ##############################################################################
 
 output resource_group_id {
-  value = "${data.ibm_resource_group.lab_rg.id}"
+  value = data.ibm_resource_group.lab_rg.id
 }
 ##############################################################################
