@@ -26,7 +26,7 @@ variable "worker_count" {
 
 variable "kube_version" {
   description = "run ibmcloud ks versions for available options"
-  default     = "4.3.23_openshift"
+  default     = "4.3.28_openshift"
 }
 
 ##############################################################################
