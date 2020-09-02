@@ -8,15 +8,15 @@
 ##############################################################################
 /*
 resource ibm_iam_access_group_policy bucket_labuser_policy {
-  access_group_id = "${data.ibm_schematics_output.groups_output.output_values.labdev_group_id}"
+  access_group_id = data.ibm_schematics_output.groups_output.output_values.labdev_group_id
   roles           = ["${var.labuser_access}"]
 
   resources = [
     {
       service              = "cloud-object-storage"
-      resource_instance_id = "${data.ibm_schematics_output.cos_workspace.output_values.cos_id}"
+      resource_instance_id = data.ibm_schematics_output.cos_workspace.output_values.cos_id
       resource_type        = "bucket"
-      resource             = "${ibm_cos_bucket.cos_bucket.bucket_name}"
+      resource             = ibm_cos_bucket.cos_bucket.bucket_name
     }
   ]
 }
@@ -30,15 +30,15 @@ resource ibm_iam_access_group_policy bucket_labuser_policy {
 
 resource ibm_iam_service_policy bucket_admin_policy {
 
-  iam_service_id = "${data.ibm_schematics_output.groups_output.output_values.service_id}"
+  iam_service_id = data.ibm_schematics_output.groups_output.output_values.service_id
   roles          = ["${var.labadmin_access}"]
 
   resources = [
     {
       service              = "cloud-object-storage"
-      resource_instance_id = "${data.ibm_schematics_output.cos_workspace.output_values.cos_id}"
+      resource_instance_id = data.ibm_schematics_output.cos_workspace.output_values.cos_id
       resource_type        = "bucket"
-      resource             = "${ibm_cos_bucket.cos_bucket.bucket_name}"
+      resource             = ibm_cos_bucket.cos_bucket.bucket_name
     }
   ]
 

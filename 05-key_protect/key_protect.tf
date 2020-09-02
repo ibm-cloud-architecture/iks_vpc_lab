@@ -28,9 +28,9 @@
 resource ibm_resource_instance kms {
   name              = "${var.unique_id}-kms"
   service           = "kms"
-  plan              = "${var.kms_plan}"
-  location          = "${var.ibm_region}"
-  resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
+  plan              = var.kms_plan
+  location          = var.ibm_region
+  resource_group_id = data.ibm_schematics_output.groups_output.output_values.resource_group_id
   tags              = ["iks-on-vpc"]
 
   parameters = {
@@ -47,7 +47,7 @@ resource ibm_resource_instance kms {
 ##############################################################################
 
 resource ibm_kp_key key {
-  key_protect_id = "${ibm_resource_instance.kms.guid}"
-  key_name       = "${var.kms_root_key_name}"
+  key_protect_id = ibm_resource_instance.kms.guid
+  key_name       = var.kms_root_key_name
   standard_key   = false
 }

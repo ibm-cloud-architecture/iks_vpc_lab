@@ -10,7 +10,7 @@
 /*
 
 resource ibm_iam_access_group_policy cos_labadmin_policy {
-  access_group_id = "${data.ibm_schematics_output.groups_output.output_values.labadmin_group_id}"
+  access_group_id = data.ibm_schematics_output.groups_output.output_values.labadmin_group_id
   roles           = ["${var.labadmin_access}"]
 
   resources = [{
@@ -21,7 +21,7 @@ resource ibm_iam_access_group_policy cos_labadmin_policy {
 
 
 resource ibm_iam_access_group_policy cos_labuser_policy {
-  access_group_id = "${data.ibm_schematics_output.groups_output.output_values.labuser_group_id}"
+  access_group_id = data.ibm_schematics_output.groups_output.output_values.labuser_group_id
   roles           = ["${var.labuser_access}"]
 
   resources = [

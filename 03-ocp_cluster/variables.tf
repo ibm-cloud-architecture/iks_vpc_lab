@@ -11,12 +11,12 @@ variable "ibm_region" {
 # Cluster Variables
 ##############################################################################
 variable "cluster_name" {
-  description = "name for the iks cluster"
+  description = "name for the ocp cluster"
 }
 
 variable "machine_type" {
-  description = "Machine type for the IKS Cluster"
-  default     = "bx2.2x8"
+  description = "Machine type for the OCP Cluster"
+  default     = "bx2.4x16"
 }
 
 variable "worker_count" {
@@ -26,10 +26,19 @@ variable "worker_count" {
 
 variable "kube_version" {
   description = "run ibmcloud ks versions for available options"
-  default     = "1.17.5"
+  default     = "4.3.28_openshift"
 }
 
 ##############################################################################
+
+##############################################################################
+# Unique variables
+##############################################################################
+variable unique_id {
+    description = "The unique identifier"
+}
+##############################################################################
+
 
 ##############################################################################
 # VPC workspace ID

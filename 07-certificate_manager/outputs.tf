@@ -14,7 +14,7 @@ output cms_id {
 ##############################################################################
 
 output cms_cert_id {
-  value = "${ibm_certificate_manager_import.cert.id}"
+  value = ibm_certificate_manager_import.cert.id
 }
 
 ##############################################################################

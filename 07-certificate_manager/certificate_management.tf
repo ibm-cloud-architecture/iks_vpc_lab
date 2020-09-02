@@ -28,14 +28,14 @@
 resource ibm_resource_instance cms {
   name              = "${var.unique_id}-cms"
   service           = "cloudcerts"
-  plan              = "${var.cms_plan}"
-  location          = "${var.ibm_region}"
-  resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
+  plan              = var.cms_plan
+  location          = var.ibm_region
+  resource_group_id = data.ibm_schematics_output.groups_output.output_values.resource_group_id
   tags              = ["iks-on-vpc"]
 
   parameters = {
     "HMAC"            = true,
-    service-endpoints = "${var.end_points}"
+    service-endpoints = var.end_points
   }
 
   timeouts {
@@ -65,18 +65,18 @@ resource "null_resource" "import" {
 }
 data "local_file" "cert" {
   filename   = "${path.module}/${var.cert}"
-  depends_on = ["null_resource.import"]
+  depends_on = [null_resource.import]
 }
 data "local_file" "key" {
   filename   = "${path.module}/${var.key}"
-  depends_on = ["null_resource.import"]
+  depends_on = [null_resource.import]
 }
 resource "ibm_certificate_manager_import" "cert" {
-  certificate_manager_instance_id = "${ibm_resource_instance.cms.id}"
+  certificate_manager_instance_id = ibm_resource_instance.cms.id
   name                            = "test"
   data = {
-    content  = "${data.local_file.cert.content}"
-    priv_key = "${data.local_file.key.content}"
+    content  = data.local_file.cert.content
+    priv_key = data.local_file.key.content
   }
 }
 

@@ -5,7 +5,8 @@
 ##############################################################################
 
 provider "ibm" {
-  region             = var.ibm_region
-  generation         = 2
-  ibmcloud_timeout   = 60
+  region           = var.ibm_region
+  generation       = 2
+  ibmcloud_timeout = 60
 }
+

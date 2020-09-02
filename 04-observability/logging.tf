@@ -31,13 +31,13 @@
 resource "ibm_resource_instance" "iks_on_vpc_activity_tracker" {
   name              = "${var.unique_id}-activity-tracker"
   service           = "logdnaat"
-  plan              = "${var.logging_plan}"
-  location          = "${var.ibm_region}"
-  resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
+  plan              = var.logging_plan
+  location          = var.ibm_region
+  resource_group_id = data.ibm_schematics_output.groups_output.output_values.resource_group_id
   tags              = ["iks-on-vpc"]
 
   parameters = {
-    service-endpoints = "${var.end_points}"
+    service-endpoints = var.end_points
   }
 
 }
@@ -53,9 +53,9 @@ resource "ibm_resource_instance" "logdna" {
 
   name              = "${var.unique_id}-logdna"
   service           = "logdna"
-  plan              = "${var.logging_plan}"
-  location          = "${var.ibm_region}"
-  resource_group_id = "${data.ibm_schematics_output.groups_output.output_values.resource_group_id}"
+  plan              = var.logging_plan
+  location          = var.ibm_region
+  resource_group_id = data.ibm_schematics_output.groups_output.output_values.resource_group_id
   tags              = ["iks-on-vpc"]
 
 }
@@ -69,8 +69,8 @@ resource "ibm_resource_instance" "logdna" {
 
 resource "ibm_resource_key" "logdna_secret" {
   name                 = "${var.unique_id}_logdna_key"
-  role                 = "${var.log_role}"
-  resource_instance_id = "${ibm_resource_instance.logdna.id}"
+  role                 = var.log_role
+  resource_instance_id = ibm_resource_instance.logdna.id
 }
 
 ##############################################################################
