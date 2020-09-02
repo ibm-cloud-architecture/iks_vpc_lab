@@ -24,7 +24,7 @@
 ##############################################################################
 
 resource ibm_cos_bucket cos_bucket {
-#  key_protect          = data.ibm_schematics_output.key_workspace.output_values.kms_id
+  key_protect          = data.ibm_schematics_output.key_workspace.output_values.kms_id
   bucket_name          = var.cos_bucket_name
   resource_instance_id = data.ibm_schematics_output.cos_workspace.output_values.cos_id
   region_location      = var.ibm_region
