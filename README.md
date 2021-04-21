@@ -1,6 +1,6 @@
 # VPC And Infrastructure as Code (IaC) on IBM Cloud 
 
-This repo contains the terraform code used to provision the environment for the  [VPC And Infrastructure as Code (IaC) on IBM Cloud](https://developer.ibm.com/openlabs/vpc/catalog) course. 
+This repo contains the terraform code used to provision the environment for the  [VPC And Infrastructure as Code (IaC) on IBM Cloud](https://developer.ibm.com/openlabs/vpc) course. 
 
 ![architecture](images/ex3_diagram_data.png)
 
